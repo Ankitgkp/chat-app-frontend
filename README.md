@@ -122,7 +122,7 @@ frontend/
 - **Vite** - Fast development server with HMR
 - **Environment Variables** - Secure configuration management
 
-## 🌐 Live Demo
+## 🌐 Backend
 
 The application is connected to a backend server at `https://chat-app-backend-6f5h.onrender.com/` for real-time functionality.
 
