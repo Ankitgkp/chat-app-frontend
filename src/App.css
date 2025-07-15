@@ -1,8 +1,8 @@
 
 .scroll-follow-button {
-  background: #3b82f6;
+  background: #404040;
   border: none;
-  border-radius: 50%;
+  border-radius: 8px;
   color: white;
   cursor: pointer;
   height: 40px;
@@ -10,13 +10,13 @@
   right: 20px;
   bottom: 80px;
   width: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
   z-index: 10;
 }
 
 .scroll-follow-button:hover {
-  background: #2563eb;
+  background: #262626;
   transform: scale(1.05);
 }
 

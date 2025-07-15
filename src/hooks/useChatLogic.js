@@ -3,9 +3,26 @@ import { useState, useEffect } from 'react'
 const useChatLogic = (socket, username, roomID) => {
     const [currentMessage, setCurrentMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const getCurrentTime = () => {
-        return new Date(Date.now()).getHours() + ':' + new Date(Date.now()).getMinutes();
+        const now = new Date(Date.now());
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const hours12 = hours % 12 || 12; 
+        const minutesFormatted = String(minutes).padStart(2, '0');
+        return `${hours12}:${minutesFormatted} ${ampm}`;
+    };
+
+    const formatTime = (timestamp) => {
+        const date = new Date(timestamp);
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const hours12 = hours % 12 || 12; 
+        const minutesFormatted = String(minutes).padStart(2, '0');
+        return `${hours12}:${minutesFormatted} ${ampm}`;
     };
 
     const sendMessage = async () => {
@@ -81,9 +98,10 @@ const useChatLogic = (socket, username, roomID) => {
                 photo: msg.mediaData && msg.type === 'photo' ? msg.mediaData : undefined,
                 video: msg.mediaData && msg.type === 'video' ? msg.mediaData : undefined,
                 type: msg.type,
-                time: new Date(msg.timestamp).getHours() + ':' + String(new Date(msg.timestamp).getMinutes()).padStart(2, '0')
+                time: formatTime(msg.timestamp)
             }));
             setMessageList(formattedMessages);
+            setIsLoading(false);
         });
 
         socket.on("message_recieve", (data) => {
@@ -97,12 +115,22 @@ const useChatLogic = (socket, username, roomID) => {
         socket.on("video_recieve", (data) => {
             setMessageList((list) => [...list, data]);
         });
+
+
+        const loadingTimeout = setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+
+        return () => {
+            clearTimeout(loadingTimeout);
+        };
     }, [socket]);
 
     return {
         currentMessage,
         setCurrentMessage,
         messageList,
+        isLoading,
         sendMessage,
         pickPhoto,
         pickVideo,
