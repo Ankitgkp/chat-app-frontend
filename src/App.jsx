@@ -5,7 +5,7 @@ import Chats from './components/Chats';
 import JoinRoom from './components/JoinRoom';
 import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from '@clerk/clerk-react'
 
-const socket = io.connect('https://real-time-chat-app-backend.netlify.app/');
+const socket = io.connect('https://chat-app-backend-6f5h.onrender.com/');
 
 function App() {
   const [roomID, setroomID] = useState('');
