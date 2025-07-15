@@ -4,14 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import { ClerkProvider } from '@clerk/clerk-react'
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_SECRET_KEY
-
-console.log('Environment variables:', import.meta.env)
-console.log('PUBLISHABLE_KEY:', PUBLISHABLE_KEY)
-
-if (!PUBLISHABLE_KEY) {
-  console.error('Missing VITE_CLERK_SECRET_KEY environment variable')
-}
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
